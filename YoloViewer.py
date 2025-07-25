@@ -174,6 +174,24 @@ info_plantas = {
     }
 }
 
+import tkinter as tk
+from tkinter import ttk
+from PIL import Image, ImageTk
+import cv2
+import torch
+import numpy as np
+import time
+
+CLASS_NAMES = [
+    'Aloe vera (Sábila)', 'Calendula officinalis (Calendula)',
+    'Chamaemelum nobile (Manzanilla)', 'Dysphania ambrosioides (Paico)',
+    'Eryngium foetidum (Cimarrón)', 'Erythroxylum coca (Coca)',
+    'Mentha spicata (Hierbabuena)', 'Peumus boldus (Boldo)',
+    'PlantasNoMedicinales', 'Ruta graveolens (Ruda)',
+    'Valeriana officinalis (Valeriana)'
+]
+
+# (info_plantas debería ir aquí, ya lo tienes definido)
 
 def load_model(path, device="cpu"):
     model = torch.jit.load(path, map_location=device)
@@ -205,7 +223,7 @@ class CameraClassifierApp(tk.Tk):
         self.device = device
         self.input_size = (640, 640)
 
-        # Marco principal dividido horizontalmente
+        # Marco principal
         self.main_frame = tk.Frame(self)
         self.main_frame.pack(fill=tk.BOTH, expand=True)
 
@@ -219,7 +237,7 @@ class CameraClassifierApp(tk.Tk):
         self.pred_label = ttk.Label(self.left_frame, text="Iniciando...", font=("Arial", 14, "bold"))
         self.pred_label.pack(pady=10)
 
-        # === Lado derecho: información de planta ===
+        # === Lado derecho: información ===
         self.right_frame = tk.Frame(self.main_frame)
         self.right_frame.pack(side=tk.RIGHT, fill=tk.BOTH, expand=True, padx=10, pady=10)
 
@@ -258,6 +276,8 @@ class CameraClassifierApp(tk.Tk):
 
         # Mostrar información
         planta = info_plantas.get(label, info_plantas['PlantasNoMedicinales'])
+        usos = "\n- ".join(planta['usos_medicinales'])
+        props = "\n- ".join(planta['propiedades'])
 
         texto = f"""🌱 Nombre común: {planta['nombre_comun']}
 🔬 Nombre científico: {planta['nombre_cientifico']}
@@ -265,10 +285,10 @@ class CameraClassifierApp(tk.Tk):
 📄 Descripción: {planta['descripcion']}
 
 💊 Usos medicinales:
-- {"\n- ".join(planta['usos_medicinales'])}
+- {usos}
 
 🧪 Propiedades:
-- {"\n- ".join(planta['propiedades'])}
+- {props}
 
 🍵 Preparación: {planta['preparacion']}
 ⚠️ Precauciones: {planta['precauciones']}
@@ -276,7 +296,7 @@ class CameraClassifierApp(tk.Tk):
         self.text_info.delete(1.0, tk.END)
         self.text_info.insert(tk.END, texto)
 
-        self.after(1000, self.update_frame)
+        self.after(100, self.update_frame)
 
     def on_close(self):
         if self.cap and self.cap.isOpened():
@@ -284,6 +304,8 @@ class CameraClassifierApp(tk.Tk):
         self.destroy()
 
 if __name__ == "__main__":
+    MODEL_PATH = "best.torchscript"
+    DEVICE = "cpu"
     model = load_model(MODEL_PATH, DEVICE)
     app = CameraClassifierApp(model, DEVICE)
     app.protocol("WM_DELETE_WINDOW", app.on_close)
