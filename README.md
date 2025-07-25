@@ -74,15 +74,19 @@ El modelo utilizado es una red neuronal basada en YOLOv8 entrenada en modo clasi
 
 El modelo fue exportado a formato TorchScript con el fin de facilitar su uso en dispositivos de cómputo de bajo consumo, sin dependencias de Ultralytics o PyTorch Lightning.
 
-Clases incluidas en el modelo (ejemplos):
+Clases incluidas en el modelo:
 
-- Aloe vera
-- Manzanilla
-- Valeriana
-- Ruda
-- Boldo
-- Coca
-- Plantas no medicinales
+- Eryngium foetidum (Cimarrón) 
+-  Mentha spicata (Hierbabuena) 
+-  Valeriana officinalis (Valeriana) 
+-  PlantasNoMedicinales (Clase de control)
+-  Aloe vera (Sábila) 
+-  Calendula officinalis (Caléndula) 
+-  Dysphania ambrosioides (Paico) 
+-  Peumus boldus (Boldo) 
+-  Chamaemelum nobile (Manzanilla) 
+-  Ruta graveolens (Ruda) 
+-  Erythroxylum coca (Coca) 
 
 ---
 
