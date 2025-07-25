@@ -1,9 +1,9 @@
 # GreenMachine - Universidad Nacional de Colombia Sede Manizales
 
 ## Autores
-- Jholman Dasney Meza Pasinga  
-- Juan Camilo Perdomo Soto  
-- Campos Herney Tulcan Cuasapud  
+- Jholman Dasney Meza Pasinga  jmezap@unal.edu.co
+- Juan Camilo Perdomo Soto  jperdomos@unal.edu.co
+- Campos Herney Tulcan Cuasapud  ctulcan@unal.edu.co
 
 ---
 
@@ -106,6 +106,3 @@ El archivo `proyecto-greenmachine-pdi-jp-jm.ipynb` contiene:
 
 ---
 
-## Contacto
-
-Para más información, contactar al equipo de desarrollo mediante los correos institucionales o la plataforma GitHub.
